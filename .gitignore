@@ -5,3 +5,7 @@ web-build/
 *.log
 .DS_Store
 .env
+ios/
+android/
+auth/
+*.p8

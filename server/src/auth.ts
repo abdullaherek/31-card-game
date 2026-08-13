@@ -1,3 +1,4 @@
+import { createRemoteJWKSet, jwtVerify } from 'jose';
 import jwt from 'jsonwebtoken';
 
 export interface AuthedUser {
@@ -5,18 +6,42 @@ export interface AuthedUser {
   displayName: string;
 }
 
+function extractIdentity(payload: Record<string, unknown>): AuthedUser {
+  const userId = payload.sub as string | undefined;
+  if (!userId) throw new Error('Token has no subject');
+
+  const meta = (payload.user_metadata ?? {}) as Record<string, unknown>;
+  const displayName =
+    (typeof meta.full_name === 'string' && meta.full_name) ||
+    (typeof meta.name === 'string' && meta.name) ||
+    'Oyuncu';
+
+  return { userId, displayName };
+}
+
+let jwks: ReturnType<typeof createRemoteJWKSet> | null = null;
+function getJwks() {
+  if (!jwks) {
+    const supabaseUrl = process.env.SUPABASE_URL;
+    if (!supabaseUrl) throw new Error('SUPABASE_URL not configured');
+    jwks = createRemoteJWKSet(new URL(`${supabaseUrl}/auth/v1/.well-known/jwks.json`));
+  }
+  return jwks;
+}
+
 /**
- * Verifies a Supabase-issued access token (HS256, signed with the project's JWT
- * secret — Supabase dashboard: Project Settings > API > JWT Secret). Throws on any
- * invalid/expired token; callers (MasaRoom.onAuth) should let that reject the
- * connection rather than catching it.
+ * Verifies a Supabase-issued access token.
  *
- * If your Supabase project has been migrated to asymmetric (RS256/ES256) signing
- * keys, swap this for JWKS verification (e.g. via the `jose` package's
- * createRemoteJWKSet against `${SUPABASE_URL}/auth/v1/.well-known/jwks.json`)
- * instead of a shared secret — the call site in MasaRoom doesn't need to change.
+ * New Supabase projects sign auth tokens asymmetrically (ES256/RS256) by default —
+ * there is no shared secret to extract at all (see Project Settings > API > JWT Keys:
+ * "Once you've moved to using the JWT signing keys feature, extracting the private
+ * key or shared secret from Supabase is not possible"). So the primary path here
+ * verifies against the project's public JWKS endpoint via `jose`, which handles
+ * fetching/caching/rotation automatically. `SUPABASE_JWT_SECRET` is kept only as a
+ * fallback for older projects still on legacy HS256 signing — set it and this will
+ * use it instead if JWKS verification isn't available.
  */
-export function verifySupabaseToken(token: string): AuthedUser {
+export async function verifySupabaseToken(token: string): Promise<AuthedUser> {
   // DEV_MODE ONLY — never set this in a deployed environment (see DEPLOY.md, which
   // never sets it). Accepts a plain, unverified "dev:<id>:<url-encoded name>" token
   // instead of a real Supabase JWT, so the whole join/admit/play flow can be tested
@@ -30,18 +55,13 @@ export function verifySupabaseToken(token: string): AuthedUser {
     return { userId, displayName: decodeURIComponent(encodedName ?? '') || 'Oyuncu' };
   }
 
+  if (process.env.SUPABASE_URL) {
+    const { payload } = await jwtVerify(token, getJwks());
+    return extractIdentity(payload as Record<string, unknown>);
+  }
+
   const secret = process.env.SUPABASE_JWT_SECRET;
-  if (!secret) throw new Error('SUPABASE_JWT_SECRET not configured');
-
+  if (!secret) throw new Error('SUPABASE_URL (or legacy SUPABASE_JWT_SECRET) not configured');
   const payload = jwt.verify(token, secret, { algorithms: ['HS256'] }) as jwt.JwtPayload;
-  const userId = payload.sub;
-  if (!userId) throw new Error('Token has no subject');
-
-  const meta = (payload.user_metadata ?? {}) as Record<string, unknown>;
-  const displayName =
-    (typeof meta.full_name === 'string' && meta.full_name) ||
-    (typeof meta.name === 'string' && meta.name) ||
-    'Oyuncu';
-
-  return { userId, displayName };
+  return extractIdentity(payload as Record<string, unknown>);
 }

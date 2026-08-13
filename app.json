@@ -8,9 +8,14 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
     "ios": {
-      "supportsTablet": false
+      "supportsTablet": false,
+      "bundleIdentifier": "com.abdullaherek.otuzbirmasa",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
+      "package": "com.abdullaherek.otuzbirmasa",
       "adaptiveIcon": {
         "backgroundColor": "#0c3b29",
         "foregroundImage": "./assets/android-icon-foreground.png",
@@ -24,7 +29,14 @@
     },
     "plugins": [
       "expo-font",
-      "expo-web-browser"
-    ]
+      "expo-web-browser",
+      "expo-dev-client"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "6551f612-304c-475c-9b45-0ac1dd51cfaa"
+      }
+    },
+    "owner": "abdullaherek"
   }
 }

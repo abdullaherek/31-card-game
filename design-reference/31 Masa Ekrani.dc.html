@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/classical-dce03d2a-2436-4855-9b2d-c605d88ddcc4/styles.css">
+<script src="_ds/classical-dce03d2a-2436-4855-9b2d-c605d88ddcc4/_ds_bundle.js"></script>
+<style>
+body{margin:0;background:var(--color-bg)}
+.dv-turn{padding:40px 28px 32px;border-bottom:1px solid var(--color-divider);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 6px}
+.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:var(--color-neutral-900);color:var(--color-neutral-100);border-radius:4px;text-decoration:none}
+.dv-tname{font-family:var(--font-heading);font-size:19px;font-weight:600;color:var(--color-text)}
+.dv-opts{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start;margin-top:26px}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:10px;scroll-margin-top:16px;width:404px}
+.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:var(--color-accent-200);color:var(--color-accent-900);border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font-family:var(--font-heading);font-size:17px;font-weight:600;color:var(--color-text)}
+.dv-onote{font-family:var(--font-body);font-size:11.5px;line-height:1.5;color:var(--color-neutral-700);margin:0 0 6px;text-wrap:pretty}
+.dv-next{margin:26px 0 0;font-family:var(--font-body);font-size:11.5px;line-height:1.6;color:var(--color-neutral-600)}
+.dv-brief{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider);margin:18px 0 0}
+.dv-brief > div{padding:14px 18px 14px 0;border-right:1px solid var(--color-divider)}
+.dv-brief > div:last-child{border-right:0}
+.dv-bk{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:5px;font-family:var(--font-body)}
+.dv-bv{font-family:var(--font-body);font-size:11.5px;line-height:1.55;color:var(--color-text);text-wrap:pretty}
+a{color:var(--color-accent-700)}a:hover{color:var(--color-accent-800)}
+</style>
+</helmet>
+
+<section class="dv-turn" id="t2">
+  <div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">Seçilen yön <a class="dv-oid" href="#1a">1a</a> — eksik durumlar tamamlandı</span></div>
+  <div class="dv-opts">
+    <div class="dv-opt" id="2a">
+      <div class="dv-olabel"><a class="dv-oid" href="#2a">2a</a>Masa · el sonu · borç kilidi</div>
+      <p class="dv-onote">İki durum eklendi. <strong>El sonu:</strong> kütük mührünün dili korunarak bir kolofon paneli — 31 deklare edildiyse rakam altın çizgiyle büyür, altında sıralama, kimin ne kazandığı ve kütüğün devredip devretmediği tek satırda ("devir sadece 31 ile"). Masa ücretinin kasaya gittiği burada görünür. <strong>Borç kilidi:</strong> biri vurduğunda bar kilitlenir, yalnız Gör/Kaç açık kalır ve üstte altın şeritli bir borç satırı çıkar — neden kilitli olduğunu tahmin ettirmez. El sonunu beklemeden görmek için başlıktaki "prova: el sonu"na dokun.</p>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+        <dc-import name="Masa" variant="a" hint-size="100%,100%" style="height:100%"></dc-import>
+      </x-import>
+    </div>
+  </div>
+  <p class="dv-next">Sırada: "handoff paketini ver" · "kütük göstergesine 3 metafor" · "dağıtma ve çip animasyonlarını storyboard'la"</p>
+</section>
+
+<section class="dv-turn" id="t1">
+  <div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">31 — masa ekranı, iki yön</span></div>
+  <div class="dv-brief">
+    <div>
+      <div class="dv-bk">Varsayımlar</div>
+      <div class="dv-bv">Kurallar motordan birebir: sınırsız bedava açık çekim, vuruş başına bir kapalı çekim hakkı, 31 deklarasyonu zorunlu, kütük sadece 31 ile devrediliyor ve devreden 2 çip masa ücreti ödüyor. Botlar basit bir sezgiyle oynuyor; sunucu değil, tasarımı denemek için.</div>
+    </div>
+    <div>
+      <div class="dv-bk">Görsel yön</div>
+      <div class="dv-bv">Casino değil, kitap. Açık zemin, hairline ayrımlar, Cormorant başlıklar, tabular rakamlar. Altın sadece kontur olarak: kütük mührü, masanın gördüğü kartlar ve sıra göstergesi. Yeşil çuha ve dolu altın yüzey yok.</div>
+    </div>
+    <div>
+      <div class="dv-bk">İki yön neyi ayırıyor</div>
+      <div class="dv-bv">İkisi de aynı motoru oynatıyor; fark yalnız senin işaretlediğin iki problemde: as seçim UI'ı ve açık çekilmiş kartın görsel dili. Geri kalan her şey bilinçli olarak aynı ve sessiz.</div>
+    </div>
+  </div>
+
+  <div class="dv-opts">
+    <div class="dv-opt" id="1a">
+      <div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Değer kartları · kart elde kalır</div>
+      <p class="dv-onote">As seçimi iki fiş olarak yan yana: her değerin altında <em>hiyerarşide kaçıncı</em> olduğu yazıyor, seçili olan altın çizgiyle. Yeni oyuncu 24'e basınca "hiyerarşide 12." görüyor ve 14'ün üstte olduğunu okuyor. Açık çekilen kart elde kalır ama altın mat + halka ile ayrılır: kart sende, bilgi masada.</p>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+        <dc-import name="Masa" variant="a" hint-size="100%,100%" style="height:100%"></dc-import>
+      </x-import>
+    </div>
+
+    <div class="dv-opt" id="1b">
+      <div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Hiyerarşi merdiveni · açık kartlar rafta</div>
+      <p class="dv-onote">As seçimi bir liste değil, sıralamanın kendisi: 31 · 2-2 · As-3 · 7-7 · 14 · 30 · 29… merdiveninde senin iki değerin kendi basamağında işaretli. 14'ün 24'ün fiziksel olarak üstünde durduğunu görüyorsun, açıklama gerekmiyor. Açık çekilen kart elden çıkıp üstteki "Açıkta" rafına taşınıyor — masanın gördüğü şey ayrı bir yerde duruyor.</p>
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+        <dc-import name="Masa" variant="b" hint-size="100%,100%" style="height:100%"></dc-import>
+      </x-import>
+    </div>
+  </div>
+
+  <p class="dv-next">Sırada: "<a class="dv-oid" href="#1b">1b</a>'nin merdivenini <a class="dv-oid" href="#1a">1a</a>'ya taşı" · "kütük göstergesi için 3 farklı metafor" · "el sonu / 31 kutlama anını tasarla"</p>
+</section>
+
+</x-dc>
+</body>
+</html>

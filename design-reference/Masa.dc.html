@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/classical-dce03d2a-2436-4855-9b2d-c605d88ddcc4/styles.css">
+<script src="_ds/classical-dce03d2a-2436-4855-9b2d-c605d88ddcc4/_ds_bundle.js"></script>
+<style>
+@keyframes k31 { 0%,100% { opacity:1 } 50% { opacity:.45 } }
+.t31-btn { -webkit-tap-highlight-color: transparent; }
+.t31-btn:active { transform: translateY(1px); }
+</style>
+</helmet>
+<div style="height:100%;position:relative;display:flex;flex-direction:column;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:56px 12px 30px;box-sizing:border-box;overflow:hidden">
+
+  <sc-if value="{{ over }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;z-index:40;background:color-mix(in srgb, var(--color-neutral-900) 42%, transparent);display:flex;align-items:center;justify-content:center;padding:20px">
+      <div style="width:100%;background:var(--color-bg);border:1px solid var(--color-neutral-300);border-radius:var(--radius-md);box-shadow:var(--shadow-lg);padding:20px 18px 16px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center">
+          <sc-if value="{{ is31 }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+              <span style="font-size:8.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--color-accent-700)">deklare edildi</span>
+              <span style="font-family:var(--font-heading);font-size:64px;font-weight:400;line-height:.95;color:var(--color-accent-800);font-variant-numeric:tabular-nums;border-bottom:1.5px solid var(--color-accent);padding:0 14px 4px">31</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ notWin31 }}" hint-placeholder-val="{{ false }}">
+            <span style="font-family:var(--font-heading);font-size:40px;font-weight:400;line-height:1;font-variant-numeric:tabular-nums">{{ overTitle }}</span>
+          </sc-if>
+          <span style="font-family:var(--font-heading);font-size:17px;font-weight:600;margin-top:6px">{{ overSub }}</span>
+          <span style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--color-neutral-600);font-variant-numeric:tabular-nums">pot {{ overPot }} çip</span>
+        </div>
+        <div style="height:1px;background:var(--color-divider)"></div>
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ overRows }}" as="r" hint-placeholder-count="5">
+            <div style="display:flex;align-items:baseline;gap:8px;padding:4px 0;border-bottom:1px solid var(--color-divider)">
+              <sc-if value="{{ r.win }}" hint-placeholder-val="{{ true }}">
+                <span style="flex:1;font-family:var(--font-heading);font-size:15px;font-weight:600;color:var(--color-accent-800)">{{ r.name }}</span>
+              </sc-if>
+              <sc-if value="{{ r.lost }}" hint-placeholder-val="{{ false }}">
+                <span style="flex:1;font-family:var(--font-heading);font-size:15px;font-weight:600;color:var(--color-neutral-700)">{{ r.name }}</span>
+              </sc-if>
+              <span style="font-size:11px;color:var(--color-neutral-600);font-style:italic">{{ r.label }}</span>
+              <span style="width:64px;text-align:right;font-size:11px;font-variant-numeric:tabular-nums">{{ r.delta }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;border:1px solid var(--color-accent-300);border-radius:var(--radius-md)">
+          <span style="flex:none;width:16px;height:16px;border-radius:50%;border:1px solid var(--color-accent);box-shadow:inset 0 0 0 1.5px var(--color-bg),inset 0 0 0 2.5px var(--color-accent-300);display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:9px;color:var(--color-accent-700);line-height:1">K</span>
+          <span style="font-size:10.5px;line-height:1.35;color:var(--color-accent-800)">{{ overFee }}</span>
+        </div>
+        <div style="text-align:center;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-neutral-500)">yeni el dağıtılıyor…</div>
+      </div>
+    </div>
+  </sc-if>
+
+
+  <div style="display:flex;align-items:baseline;justify-content:space-between;padding:0 2px 6px">
+    <div style="font-family:var(--font-heading);font-size:17px;font-weight:600;letter-spacing:.02em">31</div>
+    <div style="display:flex;gap:10px;align-items:baseline;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--color-neutral-600);font-variant-numeric:tabular-nums">
+      <span>Oda {{ roomCode }}</span><span>El {{ handNo }}</span>
+      <span class="t31-btn" onClick="{{ demoOver }}" style="cursor:pointer;color:var(--color-accent-700);border-bottom:1px solid var(--color-accent-300)">prova: el sonu</span>
+    </div>
+  </div>
+  <div style="height:1px;background:var(--color-divider);margin-bottom:8px"></div>
+
+  <div style="flex:1;min-height:0;display:grid;grid-template-columns:1fr 1.02fr 1fr;grid-template-rows:auto auto;gap:8px 6px;align-content:space-evenly">
+    <sc-for list="{{ seatsTop }}" as="s" hint-placeholder-count="2">
+      <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+        <div style="display:flex;align-items:baseline;gap:5px;min-width:0">
+          <sc-if value="{{ s.isKutuk }}" hint-placeholder-val="{{ true }}"><span style="flex:none;width:14px;height:14px;border-radius:50%;border:1px solid var(--color-accent);box-shadow:inset 0 0 0 1.5px var(--color-bg),inset 0 0 0 2.5px var(--color-accent-300);display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:8px;color:var(--color-accent-700);line-height:1">K</span></sc-if>
+          <span style="font-family:var(--font-heading);font-size:14.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ s.name }}</span>
+          <sc-if value="{{ s.isTurn }}" hint-placeholder-val="{{ true }}"><span style="flex:none;width:5px;height:5px;background:var(--color-accent);border-radius:50%;animation:k31 1.1s infinite"></span></sc-if>
+        </div>
+        <div style="display:flex;gap:7px;font-size:9.5px;font-variant-numeric:tabular-nums;color:var(--color-neutral-600);letter-spacing:.04em">
+          <span>{{ s.stack }} ç</span><span style="color:var(--color-accent-700)">·{{ s.contributed }}</span>
+        </div>
+        <div style="display:flex;padding-left:7px;min-height:32px;align-items:flex-start">
+          <sc-for list="{{ s.cards }}" as="c" hint-placeholder-count="2">
+            <div style="margin-left:-7px">
+              <sc-if value="{{ c.back }}" hint-placeholder-val="{{ true }}">
+                <div style="width:22px;height:31px;border-radius:2px;border:1px solid var(--color-neutral-400);background:repeating-linear-gradient(45deg,var(--color-neutral-200) 0 2px,var(--color-bg) 2px 4px)"></div>
+              </sc-if>
+              <sc-if value="{{ c.shown }}" hint-placeholder-val="{{ false }}">
+                <div style="width:22px;height:31px;border-radius:2px;border:1px solid var(--color-accent-400);background:var(--color-accent-100);display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:12px;font-weight:600;color:var(--color-accent-800);line-height:1">{{ c.rank }}</div>
+              </sc-if>
+              <sc-if value="{{ c.face }}" hint-placeholder-val="{{ false }}">
+                <div style="width:22px;height:31px;border-radius:2px;border:1px solid var(--color-neutral-400);background:var(--color-neutral-100);display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:12px;font-weight:600;line-height:1">{{ c.rank }}</div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+        <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700);height:11px">{{ s.status }}</div>
+      </div>
+    </sc-for>
+
+    <div style="grid-column:2;grid-row:1 / span 2;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:6px;padding-top:2px">
+      <div style="display:flex;align-items:flex-end;gap:6px">
+        <div style="position:relative;width:34px;height:47px">
+          <div style="position:absolute;inset:0;transform:translate(3px,3px);border:1px solid var(--color-neutral-300);border-radius:3px;background:var(--color-bg)"></div>
+          <div style="position:absolute;inset:0;transform:translate(1.5px,1.5px);border:1px solid var(--color-neutral-300);border-radius:3px;background:var(--color-bg)"></div>
+          <div style="position:absolute;inset:0;border:1px solid var(--color-neutral-500);border-radius:3px;background:repeating-linear-gradient(45deg,var(--color-neutral-200) 0 2.5px,var(--color-bg) 2.5px 5px)"></div>
+        </div>
+        <div style="width:34px;height:47px;border:1px solid var(--color-accent-400);border-radius:3px;background:var(--color-accent-100);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:600;color:var(--color-accent-800);line-height:1;gap:2px">
+          <span style="font-size:16px">{{ topRank }}</span><span style="font-size:10px">{{ topSuit }}</span>
+        </div>
+      </div>
+      <div style="font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-neutral-500);font-variant-numeric:tabular-nums">{{ deckLeft }} kart</div>
+      <div style="width:100%;height:1px;background:var(--color-divider)"></div>
+      <div style="display:flex;flex-direction:column;align-items:center;line-height:1">
+        <span style="font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-600)">Pot</span>
+        <span style="font-family:var(--font-heading);font-size:34px;font-weight:400;font-variant-numeric:tabular-nums;letter-spacing:-.01em">{{ pot }}</span>
+      </div>
+      <div style="width:100%;height:1px;background:var(--color-divider)"></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 6px;border:1px solid var(--color-accent-300);border-radius:var(--radius-md);text-align:center">
+        <span style="font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--color-accent-700)">Kütük</span>
+        <span style="font-family:var(--font-heading);font-size:15px;font-weight:600;line-height:1">{{ kutukName }}</span>
+        <span style="font-size:8px;color:var(--color-neutral-600);letter-spacing:.02em">devri: sadece 31</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="height:1px;background:var(--color-divider);margin:8px 0 6px"></div>
+
+  <div style="flex:0 0 auto;display:flex;flex-direction:column;justify-content:flex-end;gap:6px">
+
+    <sc-if value="{{ shelfMode }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;align-items:center;gap:8px;padding:5px 6px;border-top:1px solid var(--color-accent-300);border-bottom:1px solid var(--color-accent-300);background:var(--color-accent-100)">
+        <span style="font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--color-accent-700);writing-mode:vertical-rl;transform:rotate(180deg)">Açıkta</span>
+        <div style="display:flex;gap:5px;flex:1">
+          <sc-for list="{{ myOpen }}" as="c" hint-placeholder-count="1">
+            <div style="width:30px;height:42px;border:1px solid var(--color-accent-500);border-radius:2px;background:var(--color-bg);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:600;color:var(--color-accent-800);line-height:1;gap:1px">
+              <span style="font-size:15px">{{ c.rank }}</span><span style="font-size:9px">{{ c.suit }}</span>
+            </div>
+          </sc-for>
+          <sc-if value="{{ noOpen }}" hint-placeholder-val="{{ false }}"><span style="font-size:10px;color:var(--color-neutral-600);font-style:italic;align-self:center">masa henüz hiçbir kartını görmedi</span></sc-if>
+        </div>
+        <sc-if value="{{ hasOpen }}" hint-placeholder-val="{{ false }}"><span style="font-size:9px;color:var(--color-neutral-600);max-width:112px;line-height:1.3;text-align:right">bu kartları herkes gördü</span></sc-if>
+      </div>
+    </sc-if>
+
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:8px">
+      <div style="display:flex;align-items:flex-end;gap:6px;padding-left:6px">
+        <sc-for list="{{ myCards }}" as="c" hint-placeholder-count="2">
+          <div style="margin-left:-6px">
+            <sc-if value="{{ c.shown }}" hint-placeholder-val="{{ false }}">
+              <div style="width:44px;height:62px;border-radius:3px;border:1px solid var(--color-accent-500);background:var(--color-accent-100);box-shadow:0 0 0 3px var(--color-bg),0 0 0 4px var(--color-accent-200);display:flex;flex-direction:column;justify-content:space-between;padding:4px 5px;box-sizing:border-box;font-family:var(--font-heading);font-weight:600;color:var(--color-accent-800)">
+                <span style="font-size:17px;line-height:1">{{ c.rank }}</span>
+                <span style="font-size:11px;line-height:1;align-self:flex-end">{{ c.suit }}</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{ c.face }}" hint-placeholder-val="{{ true }}">
+              <div style="width:44px;height:62px;border-radius:3px;border:1px solid var(--color-neutral-400);background:var(--color-neutral-100);box-shadow:var(--shadow-sm);display:flex;flex-direction:column;justify-content:space-between;padding:4px 5px;box-sizing:border-box;font-family:var(--font-heading);font-weight:600">
+                <span style="font-size:17px;line-height:1">{{ c.rank }}</span>
+                <span style="font-size:11px;line-height:1;align-self:flex-end">{{ c.suit }}</span>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <div style="text-align:right;line-height:1.1;padding-bottom:2px">
+        <div style="font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--color-neutral-600)">Sen · {{ myStack }} ç</div>
+        <div style="font-family:var(--font-heading);font-size:13px;font-weight:600;color:var(--color-accent-700);font-variant-numeric:tabular-nums">bu ele {{ myBet }} çip</div>
+      </div>
+    </div>
+
+    <sc-if value="{{ chipsMode }}" hint-placeholder-val="{{ true }}">
+      <div style="font-size:9px;letter-spacing:.1em;color:var(--color-accent-700);padding-left:2px">{{ shownNote }}</div>
+    </sc-if>
+
+    <div style="height:1px;background:var(--color-divider)"></div>
+
+    <sc-if value="{{ chipsMode }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;align-items:stretch;gap:8px">
+        <div style="flex:1;display:flex;flex-direction:column;gap:3px">
+          <div style="font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-600)">Elin</div>
+          <div style="display:flex;gap:6px">
+            <sc-for list="{{ options }}" as="o" hint-placeholder-count="2">
+              <div class="t31-btn" onClick="{{ o.pick }}" style="cursor:pointer;flex:1;border:1px solid var(--color-neutral-300);border-radius:var(--radius-md);padding:5px 7px;display:flex;flex-direction:column;gap:1px;background:transparent">
+                <sc-if value="{{ o.on }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:flex;align-items:baseline;justify-content:space-between;border-bottom:1.5px solid var(--color-accent);padding-bottom:2px;margin:-5px -7px 3px;padding:3px 7px">
+                    <span style="font-family:var(--font-heading);font-size:22px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1">{{ o.label }}</span>
+                    <span style="font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--color-accent-700)">seçili</span>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ o.off }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid var(--color-divider);padding-bottom:2px;margin:-5px -7px 3px;padding:3px 7px;opacity:.6">
+                    <span style="font-family:var(--font-heading);font-size:22px;font-weight:400;font-variant-numeric:tabular-nums;line-height:1">{{ o.label }}</span>
+                    <span style="font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--color-neutral-500)">seç</span>
+                  </div>
+                </sc-if>
+                <div style="font-size:9.5px;color:var(--color-neutral-700);font-variant-numeric:tabular-nums">hiyerarşide {{ o.rank }}.</div>
+                <div style="font-size:9px;color:var(--color-neutral-600);font-style:italic">{{ o.note }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ ladderMode }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;gap:10px;align-items:stretch">
+        <div style="flex:1;display:flex;flex-direction:column;gap:2px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between">
+            <span style="font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-600)">Hiyerarşi</span>
+            <span style="font-size:9px;color:var(--color-neutral-600);font-style:italic">yukarısı daha iyi</span>
+          </div>
+          <sc-for list="{{ ladder }}" as="r" hint-placeholder-count="6">
+            <div>
+              <sc-if value="{{ r.mine }}" hint-placeholder-val="{{ false }}">
+                <div class="t31-btn" onClick="{{ r.pick }}" style="cursor:pointer;display:flex;align-items:center;gap:6px;padding:1.5px 6px;border-left:2px solid var(--color-accent);background:var(--color-accent-100)">
+                  <span style="width:16px;font-size:9px;color:var(--color-accent-700);font-variant-numeric:tabular-nums">{{ r.rank }}</span>
+                  <span style="font-family:var(--font-heading);font-size:14px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--color-accent-800)">{{ r.label }}</span>
+                  <span style="margin-left:auto;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700)">{{ r.tag }}</span>
+                </div>
+              </sc-if>
+              <sc-if value="{{ r.plain }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;align-items:center;gap:6px;padding:1.5px 6px;border-left:2px solid transparent;opacity:.55">
+                  <span style="width:16px;font-size:9px;color:var(--color-neutral-500);font-variant-numeric:tabular-nums">{{ r.rank }}</span>
+                  <span style="font-family:var(--font-heading);font-size:13px;font-variant-numeric:tabular-nums">{{ r.label }}</span>
+                </div>
+              </sc-if>
+              <sc-if value="{{ r.gap }}" hint-placeholder-val="{{ false }}">
+                <div style="padding:1px 6px 1px 24px;font-size:10px;color:var(--color-neutral-400);letter-spacing:.3em">···</div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ raising }}" hint-placeholder-val="{{ false }}">
+      <div style="border:1px solid var(--color-accent-300);border-radius:var(--radius-md);padding:7px 8px;display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;align-items:baseline;justify-content:space-between">
+          <span style="font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-600)">Vuruş</span>
+          <span style="font-family:var(--font-heading);font-size:24px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1">{{ raiseAmount }} <span style="font-size:11px;font-weight:400;color:var(--color-neutral-600)">çip</span></span>
+        </div>
+        <input type="range" min="2" max="100" step="1" value="{{ raiseAmount }}" onChange="{{ onSlide }}" style="width:100%;accent-color:var(--color-accent);height:18px" />
+        <div style="display:flex;gap:5px">
+          <sc-for list="{{ presets }}" as="p" hint-placeholder-count="5">
+            <button class="btn btn-ghost t31-btn" onClick="{{ p.pick }}" style="flex:1;padding:3px 0;font-size:11px;font-variant-numeric:tabular-nums;min-height:0">{{ p.label }}</button>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:6px">
+          <button class="btn btn-secondary t31-btn" onClick="{{ cancelRaise }}" style="flex:1;padding:6px 0;font-size:12px;min-height:0">Vazgeç</button>
+          <button class="btn btn-primary t31-btn" onClick="{{ confirmRaise }}" style="flex:2;padding:6px 0;font-size:12px;min-height:0">Vur ve kapalı çek</button>
+        </div>
+        <div style="font-size:9px;color:var(--color-neutral-600);font-style:italic;line-height:1.35">Vurulan çip potu büyütür ve sana bir kapalı çekim hakkı verir — masa bu kartı görmez.</div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ can31 }}" hint-placeholder-val="{{ false }}">
+      <button class="btn t31-btn" onClick="{{ onDeclare }}" style="width:100%;border:1.5px solid var(--color-accent);color:var(--color-accent-800);background:var(--color-accent-100);font-family:var(--font-heading);font-size:17px;font-weight:600;letter-spacing:.06em;padding:7px 0;animation:k31 1.2s infinite;min-height:0">31 DE!  <span style="font-family:var(--font-body);font-size:9.5px;letter-spacing:.02em;font-weight:400">demezsen 30 sayılır</span></button>
+    </sc-if>
+
+    <sc-if value="{{ debt }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;align-items:center;gap:7px;padding:5px 8px;border-left:2px solid var(--color-accent);background:var(--color-accent-100)">
+        <span style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-accent-700);flex:none">Borç</span>
+        <span style="font-size:10px;line-height:1.35;color:var(--color-accent-800)">{{ debtLine }}</span>
+      </div>
+    </sc-if>
+
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="flex:1;height:2px;background:var(--color-neutral-200);position:relative;overflow:hidden">
+        <div style="position:absolute;inset:0 auto 0 0;background:var(--color-accent);width:{{ timerPct }}%"></div>
+      </div>
+      <span style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-neutral-600);font-variant-numeric:tabular-nums">{{ turnLabel }}</span>
+    </div>
+
+    <div style="display:flex;gap:5px">
+      <sc-for list="{{ actions }}" as="a" hint-placeholder-count="4">
+        <div style="flex:{{ a.flex }};display:flex">
+          <sc-if value="{{ a.enabled }}" hint-placeholder-val="{{ true }}">
+            <button class="{{ a.cls }} t31-btn" onClick="{{ a.run }}" style="flex:1;padding:9px 0;font-size:12.5px;letter-spacing:.04em;min-height:0;white-space:nowrap">{{ a.label }}</button>
+          </sc-if>
+          <sc-if value="{{ a.disabled }}" hint-placeholder-val="{{ false }}">
+            <button class="btn btn-secondary" disabled="disabled" style="flex:1;padding:9px 0;font-size:12.5px;letter-spacing:.04em;min-height:0;white-space:nowrap;opacity:.35">{{ a.label }}</button>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="font-size:9.5px;color:var(--color-neutral-600);line-height:1.35;min-height:26px;font-style:italic">{{ logLine }}</div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:402,&quot;height&quot;:874},&quot;variant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;a&quot;,&quot;b&quot;],&quot;default&quot;:&quot;a&quot;,&quot;tsType&quot;:&quot;'a' | 'b'&quot;}}">
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    this.state = { g: null, raising: false, amount: 10, pick: null, t: 20 };
+  }
+
+  componentDidMount() {
+    const g0 = this.deal(1);
+    this.setState({ g: g0 });
+    this.schedule(g0);
+    this.tick = setInterval(() => {
+      const g = this.state.g;
+      if (!g || g.phase !== 'BETTING' || g.turn !== 0) return;
+      const t = this.state.t - 1;
+      if (t <= 0) { this.act(this.owed(g, 0) > 0 ? { type: 'FOLD' } : { type: 'PASS' }); }
+      else this.setState({ t });
+    }, 1000);
+  }
+  componentWillUnmount() { clearInterval(this.tick); if (this.bot) clearTimeout(this.bot); }
+
+  /* ---- engine ---- */
+  base(r) { return r === 'A' ? 1 : (r === 'J' || r === 'Q' || r === 'K' || r === '10') ? 10 : parseInt(r, 10); }
+  totals(cards) {
+    const min = cards.reduce((s, c) => s + this.base(c.rank), 0);
+    const aces = cards.filter(c => c.rank === 'A').length;
+    const out = [];
+    for (let u = 0; u <= aces; u++) { const t = min + u * 10; if (t <= 31) out.push(t); else break; }
+    return out;
+  }
+  scoreTotal(t, dec) {
+    if (t === 31) return dec ? { cat: 'THIRTY_ONE', total: 31, score: 1000, label: '31' }
+      : { cat: 'TOTAL', total: 30, score: 130, label: '30' };
+    if (t === 14) return { cat: 'FOURTEEN', total: 14, score: 600, label: '14' };
+    return { cat: 'TOTAL', total: t, score: 100 + t, label: String(t) };
+  }
+  evalHand(cards, dec) {
+    const ts = this.totals(cards);
+    if (!ts.length) return { cat: 'BUST', total: cards.reduce((s, c) => s + this.base(c.rank), 0), score: 0, label: 'Patlak' };
+    const cand = ts.map(t => this.scoreTotal(t, dec));
+    const two = cards.length === 2;
+    const rs = cards.map(c => c.rank).sort().join('');
+    if (two && rs === '22') cand.push({ cat: 'PAIR_TWOS', total: 4, score: 900, label: '2-2' });
+    if (two && rs === '3A') cand.push({ cat: 'ACE_THREE', total: 14, score: 800, label: 'As-3' });
+    if (two && rs === '77') cand.push({ cat: 'PAIR_SEVENS', total: 14, score: 700, label: '7-7' });
+    return cand.reduce((b, c) => c.score > b.score ? c : b);
+  }
+  rankOf(v) {
+    if (v.cat === 'THIRTY_ONE') return 1;
+    if (v.cat === 'PAIR_TWOS') return 2;
+    if (v.cat === 'ACE_THREE') return 3;
+    if (v.cat === 'PAIR_SEVENS') return 4;
+    if (v.cat === 'FOURTEEN') return 5;
+    if (v.cat === 'BUST') return 34;
+    return 5 + (31 - v.total);
+  }
+  can31(cards) { return this.totals(cards).indexOf(31) >= 0; }
+  owed(g, i) {
+    const live = g.players.filter(p => !p.folded && !p.busted);
+    const max = live.reduce((m, p) => Math.max(m, p.contributed), 0);
+    return Math.max(0, max - g.players[i].contributed);
+  }
+  legal(g, i) {
+    if (g.phase !== 'BETTING' || g.turn !== i) return [];
+    const p = g.players[i];
+    if (p.folded || p.busted) return [];
+    const o = this.owed(g, i);
+    if (o > 0) return p.stack >= o ? ['CALL', 'FOLD'] : ['FOLD'];
+    const a = [];
+    if (p.drewThisTurn && this.can31(p.cards)) a.push('DECLARE_31');
+    if (p.paidDraws > 0) a.push('DRAW_CLOSED');
+    a.push('DRAW_OPEN');
+    if (p.stack >= 2) a.push('RAISE');
+    a.push('PASS', 'FOLD');
+    return a;
+  }
+
+  deal(no) {
+    const ranks = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'], suits = ['♠','♥','♦','♣'];
+    const deck = [];
+    for (let d = 0; d < 2; d++) for (const s of suits) for (const r of ranks) deck.push({ rank: r, suit: s });
+    for (let i = deck.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const x = deck[i]; deck[i] = deck[j]; deck[j] = x; }
+    const names = ['Sen', 'Deniz', 'Ceren', 'Barış', 'Umut'];
+    const hier = [3, 4, 0, 1, 2];
+    const stacks = this.state && this.state.g ? this.state.g.players.map(p => p.stack) : [1000, 860, 1240, 615, 980];
+    const players = names.map((n, i) => ({
+      id: n, name: n, hier: hier[i], stack: stacks[i] - 2, contributed: 2,
+      cards: [deck.pop(), deck.pop()].map(c => ({ ...c, up: false })),
+      folded: false, busted: false, declared: false, paidDraws: 0, drewThisTurn: false, note: '',
+    }));
+    const order = players.map((p, i) => i).sort((a, b) => (players[a].hier || 99) - (players[b].hier || 99));
+    const top = { ...deck.pop(), up: true };
+    return {
+      phase: 'BETTING', players, order, turn: order[0], deck, top, pot: 10,
+      kutuk: 2, handNo: no, log: 'El başladı. Ante 2 çip. Kütük Ceren — sıra kütüğün altından başlıyor.',
+    };
+  }
+
+  clone(g) { return { ...g, players: g.players.map(p => ({ ...p, cards: [...p.cards] })), deck: [...g.deck] }; }
+
+  apply(g0, i, action) {
+    const g = this.clone(g0), p = g.players[i];
+    const nm = p.name;
+    if (action.type === 'CALL') { const a = this.owed(g, i); p.stack -= a; p.contributed += a; g.pot += a; g.log = nm + ' gördü (' + a + ' çip).'; return g; }
+    if (action.type === 'FOLD') { p.folded = true; g.log = nm + ' kaçtı.'; return this.endTurn(g, 'FOLD'); }
+    if (action.type === 'RAISE') {
+      const a = Math.max(2, Math.min(100, Math.min(action.amount, p.stack)));
+      p.stack -= a; p.contributed += a; g.pot += a; p.paidDraws += 1;
+      g.log = nm + ' ' + a + ' çip vurdu — pot ' + g.pot + '. Bir kapalı çekim hakkı kazandı.';
+      return g;
+    }
+    if (action.type === 'DRAW_CLOSED' || action.type === 'DRAW_OPEN') {
+      const open = action.type === 'DRAW_OPEN';
+      if (!open) p.paidDraws -= 1;
+      const c = { ...g.deck.pop(), up: open };
+      p.cards.push(c); p.drewThisTurn = true;
+      if (open) g.top = c;
+      const v = this.evalHand(p.cards, false);
+      if (v.cat === 'BUST') { p.busted = true; g.log = nm + (open ? ' açık ' + c.rank + ' çekti' : ' kapalı çekti') + ' ve patladı.'; return this.endTurn(g, 'ACTIVITY'); }
+      g.log = open ? nm + ' bedava açık çekti: ' + c.rank + c.suit + ' — masa gördü.' : nm + ' kapalı kart çekti.';
+      return g;
+    }
+    if (action.type === 'DECLARE_31') { p.declared = true; g.log = nm + ': 31!'; return this.finish(g); }
+    if (action.type === 'PASS') {
+      if (p.drewThisTurn && this.can31(p.cards)) { p.note = '31 demedi'; g.log = nm + " 31'i deklare etmedi → 30 sayılacak."; }
+      else g.log = nm + ' geçti.';
+      return this.endTurn(g, (p.paidDraws > 0 || p.drewThisTurn) ? 'ACTIVITY' : 'PASS');
+    }
+    return g;
+  }
+
+  endTurn(g, kind) {
+    if (kind === 'ACTIVITY') g.passStreak = 0;
+    else if (kind === 'PASS') g.passStreak = (g.passStreak || 0) + 1;
+    const cur = g.players[g.turn];
+    cur.paidDraws = 0; cur.drewThisTurn = false;
+    const live = g.players.filter(p => !p.folded && !p.busted);
+    if (live.length <= 1) return this.finish(g);
+    const max = live.reduce((m, p) => Math.max(m, p.contributed), 0);
+    if (live.every(p => p.contributed === max) && (g.passStreak || 0) >= live.length) return this.finish(g);
+    const oi = g.order.indexOf(g.turn);
+    for (let k = 1; k <= g.order.length; k++) {
+      const n = g.order[(oi + k) % g.order.length];
+      if (!g.players[n].folded && !g.players[n].busted) { g.turn = n; break; }
+    }
+    return g;
+  }
+
+  finish(g) {
+    const live = g.players.map((p, i) => ({ p, i })).filter(x => !x.p.folded && !x.p.busted);
+    const ranked = live.map(x => ({ ...x, v: this.evalHand(x.p.cards, x.p.declared) }))
+      .sort((a, b) => (b.v.score - a.v.score) || ((a.p.hier || 99) - (b.p.hier || 99)));
+    const top = ranked[0];
+    const potAmount = g.pot;
+    g.phase = 'OVER'; g.turn = -1;
+    let title = '', sub = '', fee = '', winner = -1;
+    if (!top || top.v.cat === 'BUST') {
+      g.players[g.kutuk].stack += g.pot;
+      winner = g.kutuk;
+      title = 'Herkes patladı';
+      sub = 'Pot kütüğe kaldı — ' + g.players[g.kutuk].name;
+      g.log = 'Herkes patladı — pot (' + potAmount + ') kütüğe kaldı.';
+    } else {
+      top.p.stack += g.pot;
+      winner = top.i;
+      let extra = '';
+      if (top.v.cat === 'THIRTY_ONE' && top.i !== g.kutuk) {
+        g.players[g.kutuk].stack -= 2;
+        extra = ' Kütük ' + g.players[g.kutuk].name + ' → ' + top.p.name + '. Masa ücreti 2 çip kasaya.';
+        fee = 'Kütük ' + g.players[g.kutuk].name + ' → ' + top.p.name + ' · masa ücreti 2 çip kasaya';
+        g.kutuk = top.i;
+      } else if (top.v.cat === 'THIRTY_ONE') {
+        fee = 'Kütük ' + top.p.name + "'de kaldı — kendi 31'i devir saymaz";
+      } else {
+        fee = 'Kütük ' + g.players[g.kutuk].name + "'de kalıyor — devir sadece 31 ile";
+      }
+      title = top.v.cat === 'THIRTY_ONE' ? '31!' : top.v.label;
+      sub = top.p.name + ' potu aldı';
+      g.log = top.p.name + ' potu aldı: ' + potAmount + ' çip — ' + top.v.label + '.' + extra;
+    }
+    const rows = g.players.map((p, i) => ({
+      name: p.name,
+      label: p.busted ? 'patlak' : p.folded ? 'kaçtı' : this.evalHand(p.cards, p.declared).label,
+      delta: (i === winner ? '+' + (potAmount - p.contributed) : '−' + p.contributed) + ' ç',
+      win: i === winner, lost: i !== winner,
+    })).sort((a, b) => (b.win ? 1 : 0) - (a.win ? 1 : 0));
+    g.result = { title, sub, fee, rows, pot: potAmount, is31: title === '31!' };
+    g.pot = 0;
+    setTimeout(() => {
+      const ng = this.deal(g.handNo + 1);
+      this.setState({ g: ng, pick: null, t: 20, raising: false });
+      this.schedule(ng);
+    }, 3600);
+    return g;
+  }
+
+  /* ---- flow ---- */
+  act(action) {
+    const g = this.state.g;
+    if (!g || g.turn !== 0) return;
+    if (this.legal(g, 0).indexOf(action.type) < 0) return;
+    const ng = this.apply(g, 0, action);
+    this.setState({ g: ng, raising: false, pick: null, t: 20 });
+    this.schedule(ng);
+  }
+  schedule(g) {
+    if (this.bot) clearTimeout(this.bot);
+    if (g.phase !== 'BETTING' || g.turn === 0 || g.turn < 0) return;
+    this.bot = setTimeout(() => this.botMove(), 850);
+  }
+  botMove() {
+    let g = this.state.g;
+    if (!g || g.phase !== 'BETTING' || g.turn === 0) return;
+    const i = g.turn, p = g.players[i], v = this.evalHand(p.cards, false), o = this.owed(g, i);
+    let a;
+    if (o > 0) a = (v.score >= 118 || Math.random() < 0.45) ? { type: 'CALL' } : { type: 'FOLD' };
+    else if (p.paidDraws > 0) a = { type: 'DRAW_CLOSED' };
+    else if (p.drewThisTurn && this.can31(p.cards)) a = { type: 'DECLARE_31' };
+    else if (v.total <= 17) a = Math.random() < 0.75 ? { type: 'DRAW_OPEN' } : { type: 'RAISE', amount: 5 + Math.floor(Math.random() * 20) };
+    else if (v.total <= 23) a = Math.random() < 0.5 ? { type: 'RAISE', amount: 10 + Math.floor(Math.random() * 40) } : { type: 'PASS' };
+    else a = Math.random() < 0.25 ? { type: 'RAISE', amount: 10 + Math.floor(Math.random() * 30) } : { type: 'PASS' };
+    g = this.apply(g, i, a);
+    this.setState({ g });
+    this.schedule(g);
+  }
+
+  demoOver() {
+    const g = this.clone(this.state.g);
+    if (g.phase !== 'BETTING') return;
+    if (this.bot) clearTimeout(this.bot);
+    g.players[0].cards = [{ rank: 'K', suit: '♠', up: false }, { rank: 'A', suit: '♥', up: true }, { rank: '10', suit: '♦', up: false }];
+    g.players[0].declared = true;
+    g.pot = Math.max(g.pot, 64);
+    g.turn = 0;
+    this.setState({ g: this.finish(g), raising: false });
+  }
+
+  /* ---- view ---- */
+  cardView(c, mine) {
+    const back = !mine && !c.up;
+    return { rank: c.rank, suit: c.suit, back, shown: !!c.up, face: !back && !c.up };
+  }
+
+  renderVals() {
+    const g = this.state.g;
+    const shelf = this.props.variant === 'b';
+    if (!g) return { chipsMode: !shelf, ladderMode: shelf, shelfMode: shelf, actions: [], myCards: [], seatsTop: [], options: [], ladder: [], presets: [], pot: 0, timerPct: 0 };
+    const me = g.players[0];
+    const legal = this.legal(g, 0);
+    const has = t => legal.indexOf(t) >= 0;
+    const owe = this.owed(g, 0);
+
+    const seatIdx = [3, 1, 4, 2];
+    const seatsTop = seatIdx.map(i => {
+      const p = g.players[i];
+      const rev = g.phase === 'OVER' && !p.folded;
+      return {
+        name: p.name, stack: p.stack, contributed: p.contributed,
+        isKutuk: g.kutuk === i, isTurn: g.turn === i,
+        status: p.busted ? 'patlak' : p.folded ? 'kaçtı' : g.phase === 'OVER' && !p.folded ? this.evalHand(p.cards, p.declared).label : p.note || '',
+        cards: p.cards.map(c => this.cardView(c, rev)),
+      };
+    });
+
+    const myVal = this.evalHand(me.cards, me.declared);
+    const opts = this.totals(me.cards).map(t => this.scoreTotal(t, false)).sort((a, b) => b.score - a.score);
+    const picked = this.state.pick != null ? this.state.pick : (opts[0] ? opts[0].total : null);
+    const options = opts.map(o => {
+      const r = this.rankOf(o);
+      return {
+        label: o.label, rank: r, on: picked === o.total, off: picked !== o.total,
+        note: o.cat === 'FOURTEEN' ? 'özel el' : r <= 8 ? 'güçlü' : r <= 14 ? 'orta' : 'zayıf',
+        pick: () => this.setState({ pick: o.total }),
+      };
+    });
+
+    let ladder = [];
+    if (shelf) {
+      const mineTotals = opts.map(o => o.total);
+      const rows = [
+        { label: '31', rank: 1, t: null }, { label: '2-2', rank: 2, t: null },
+        { label: 'As-3', rank: 3, t: null }, { label: '7-7', rank: 4, t: null },
+        { label: '14', rank: 5, t: 14 },
+      ];
+      for (let t = 30; t >= 15; t--) rows.push({ label: String(t), rank: 5 + (31 - t), t });
+      const keep = [];
+      rows.forEach((r, idx) => {
+        const mine = r.t != null && mineTotals.indexOf(r.t) >= 0;
+        const near = rows.some(o => o.t != null && mineTotals.indexOf(o.t) >= 0 && Math.abs(rows.indexOf(o) - idx) <= 1);
+        if (idx <= 4 || mine || near) keep.push({ ...r, mine });
+      });
+      let last = -1;
+      keep.forEach(r => {
+        const idx = rows.findIndex(x => x.rank === r.rank);
+        if (last >= 0 && idx > last + 1) ladder.push({ gap: true, plain: false, mine: false });
+        ladder.push({
+          label: r.label, rank: r.rank, mine: r.mine, plain: !r.mine, gap: false,
+          tag: r.t === picked ? 'senin elin' : 'seçilebilir',
+          pick: r.t != null ? () => this.setState({ pick: r.t }) : () => {},
+        });
+        last = idx;
+      });
+    }
+
+    const A = (label, ok, cls, run, flex) => ({ label, enabled: ok, disabled: !ok, cls: cls, run, flex: flex || 1 });
+    const actions = [
+      A(owe > 0 ? 'Gör ' + owe : 'Gör', has('CALL'), 'btn btn-primary', () => this.act({ type: 'CALL' }), 1.1),
+      A('Aç', has('DRAW_OPEN'), 'btn btn-secondary', () => this.act({ type: 'DRAW_OPEN' }), 0.8),
+      A('Vur', has('RAISE'), 'btn btn-primary', () => this.setState({ raising: true }), 0.9),
+      A('Kapalı çek', has('DRAW_CLOSED'), 'btn btn-primary', () => this.act({ type: 'DRAW_CLOSED' }), 1.3),
+      A('Geç', has('PASS'), 'btn btn-secondary', () => this.act({ type: 'PASS' }), 0.8),
+      A('Kaç', has('FOLD'), 'btn btn-ghost', () => this.act({ type: 'FOLD' }), 0.8),
+    ];
+
+    const myOpen = me.cards.filter(c => c.up).map(c => ({ rank: c.rank, suit: c.suit }));
+    const myCards = (shelf ? me.cards.filter(c => !c.up) : me.cards).map(c => this.cardView(c, true));
+
+    return {
+      roomCode: 'K4T9', handNo: g.handNo,
+      seatsTop, pot: g.pot, deckLeft: g.deck.length,
+      topRank: g.top ? g.top.rank : '', topSuit: g.top ? g.top.suit : '',
+      kutukName: g.players[g.kutuk].name,
+      myCards, myOpen, noOpen: shelf && myOpen.length === 0, hasOpen: myOpen.length > 0,
+      myStack: me.stack, myBet: me.contributed,
+      shownNote: me.cards.some(c => c.up) ? 'işaretli kartları masa gördü — tavanını biliyorlar' : 'masa henüz hiçbir kartını görmedi',
+      chipsMode: !shelf, ladderMode: shelf, shelfMode: shelf,
+      options, ladder,
+      valueLabel: myVal.label,
+      can31: g.turn === 0 && has('DECLARE_31'),
+      raising: this.state.raising, raiseAmount: this.state.amount,
+      presets: [2, 5, 10, 25, 50, 100].map(n => ({ label: String(n), pick: () => this.setState({ amount: n }) })),
+      onSlide: e => this.setState({ amount: parseInt(e.target.value, 10) }),
+      cancelRaise: () => this.setState({ raising: false }),
+      confirmRaise: () => this.act({ type: 'RAISE', amount: this.state.amount }),
+      onDeclare: () => this.act({ type: 'DECLARE_31' }),
+      actions,
+      over: g.phase === 'OVER',
+      overTitle: g.result ? g.result.title : '',
+      overSub: g.result ? g.result.sub : '',
+      overFee: g.result ? g.result.fee : '',
+      overRows: g.result ? g.result.rows : [],
+      overPot: g.result ? g.result.pot : 0,
+      is31: !!(g.result && g.result.is31),
+      notWin31: !(g.result && g.result.is31),
+      debt: g.turn === 0 && owe > 0,
+      debtLine: owe > 0 ? 'Masada ' + owe + ' çip borcun var — görmeden başka hiçbir şey yapamazsın.' : '',
+      demoOver: () => this.demoOver(),
+      turnLabel: g.phase === 'OVER' ? 'el bitti' : g.turn === 0 ? 'sıra sende · ' + this.state.t + ' sn' : 'sıra ' + g.players[g.turn].name,
+      timerPct: g.turn === 0 && g.phase === 'BETTING' ? Math.round(this.state.t / 20 * 100) : 0,
+      logLine: g.log,
+    };
+  }
+}
+</script>
+</body>
+</html>
